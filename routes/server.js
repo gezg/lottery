@@ -19,7 +19,7 @@ router.get('/canvas.action', function (req, res) {
         var num = [Math.ceil(Math.random()*6),Math.ceil(Math.random()*6),Math.ceil(Math.random()*6)];
         result.push({
             nums: num.sort(),
-            issue: i + 1
+            issue: i == 30 ? 87 : i + 1
         });
     }
     res.send(JSON.stringify(result))

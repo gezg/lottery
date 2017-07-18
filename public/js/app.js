@@ -5,6 +5,8 @@ class DrawGrid {
             el: '#canvas',
             width: 756,
             height: 1122,
+            x: 0,
+            y: 0,
             colors: {
             	normal: '#000',
             	red: '#c00',
@@ -30,20 +32,22 @@ class DrawGrid {
     drawRect(){
     	var _this = this,
     		grid    = _this.grid,
-    		ctx = _this.ctx;
+    		ctx  = _this.ctx,
+            x  = _this.option.x,
+            y = _this.option.y;
     	//填充面板背景色
     	ctx.beginPath();
         ctx.fillStyle = '#fff';
-        ctx.fillRect(0, 0, _this.option.width ,_this.option.height);
+        ctx.fillRect(x, y, _this.option.width ,_this.option.height);
         //填充奖号背景色
         ctx.beginPath();
         ctx.fillStyle = '#efefef';
-        ctx.fillRect(grid, grid * 2 + 8, grid * 3 ,_this.option.height);
+        ctx.fillRect(x + grid, y + grid * 2 + 8, grid * 3 ,_this.option.height);
         //填充和值深色背景色
-        ctx.fillRect(grid * 18, grid * 2 + 8, grid * 8 ,_this.option.height);
+        ctx.fillRect(x + grid * 18, y + grid * 2 + 8, grid * 8 ,_this.option.height);
         ctx.beginPath();
         ctx.fillStyle = '#f8f8f8';
-        ctx.fillRect(grid * 10, grid * 2 + 8, grid * 8 ,_this.option.height);
+        ctx.fillRect(x + grid * 10, y + grid * 2 + 8, grid * 8 ,_this.option.height);
         _this.drawHeader();
     }
     //绘制线
@@ -68,16 +72,18 @@ class DrawGrid {
             ctx     = _this.ctx,
             grid    = _this.grid,
             width   = _this.option.width,
-            height  = _this.option.height;
+            height  = _this.option.height,
+            x  = _this.option.x,
+            y = _this.option.y;
         ctx.beginPath();
         //横线 保留前方一个格子 淡颜色
-        _this.drawLine(grid ,grid + 8 ,width ,grid + 8);
+        _this.drawLine(x + grid , y + grid + 8 ,width ,grid + 8);
         //横线 深色
-        _this.drawLine(0 ,grid * 2 + 8 ,width ,grid * 2 + 8 ,'bold');
+        _this.drawLine(x , y + grid * 2 + 8 ,width ,grid * 2 + 8 ,'bold');
         //画所有的竖线
         for (var i = 1; i < 36; i++) {
             var bold = _this.isBold(i);
-            _this.drawLine(grid * i , bold ? 0 : grid + 8 ,grid * i ,height ,_this.isBold(i));
+            _this.drawLine(x + grid * i , y + (bold ? 0 : grid + 8) ,grid * i ,height ,_this.isBold(i));
             _this.drawHeaderText(i);
         }
         if(_this.option.data.length){
@@ -234,7 +240,7 @@ class DrawGrid {
     	var sum = num1 + num2 + num3,
     		sumLeft = grid * 10 + (sum - 3) * grid + 4;
     	_this.drawText(sum , (sum > 9 ? sumLeft - 5 : sumLeft),height, colorType);
-    	_this.drarDiagonal((sum > 9 ? sumLeft - 5 : sumLeft) ,height, nextItem ,sum ,'sum');
+    	_this.drarDiagonal(sumLeft ,height, nextItem ,sum ,'sum');
     	//大小
     	var size = sum > 9 ? '大' : '小',
     		sizeLeft = grid * (sum > 9 ? 26 : 27);
@@ -289,13 +295,15 @@ class DrawGrid {
     			endY   = fromY + grid - 12;
 
     		if(sum - item == 1){
-    			startY = startY + 5;
-    			endY = endY - 3;
+                startX = startX - 10;
+    			startY = startY + 6;
     		}
 
     		if(item - sum == 1){
+                startX = startX - 5;
+                startY = startY - 1;
     			endX   = endX - 10;
-    			endY   = endY - 3;
+    			endY   = endY - 5;
     		}
 
     		if(sum === item){
