@@ -15,7 +15,6 @@
                 ready: function(){
                     var _this = this;
                     var d = _this.canvas.toDataURL();
-                    console.log(typeof d);
                     $.ajax({
                         type: 'POST',
                         url: 'http://localhost:3000/server/download.action',

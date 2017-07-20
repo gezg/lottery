@@ -4,7 +4,7 @@ class DrawGrid {
         let defaultOption = {
             el: '#canvas',
             width: 756,
-            height: 1122,
+            height: 1172,
             x: 0,
             y: 0,
             colors: {
@@ -151,6 +151,30 @@ class DrawGrid {
     		_this.drawNums(item ,height ,nextItem);
     		_this.drawLine(0, height, width, height ,item.issue == 87 ? 'bold' : null);
     	}
+        _this.ctx.beginPath();
+        // Create gradient
+        var grd = _this.ctx.createLinearGradient(0,0,700,0);
+
+        grd.addColorStop(0, 'red');
+        grd.addColorStop(1, '#fae592');
+
+        // Fill with gradient
+        _this.ctx.fillStyle = grd;
+
+        _this.ctx.fillRect(0, _this.option.height - 50, width,50);
+
+
+
+        _this.ctx.beginPath();
+        _this.ctx.font="30px Verdana";
+        // 创建渐变
+        var gradient = ctx.createLinearGradient(0, 0, width, 0);
+        gradient.addColorStop("0","magenta");
+        gradient.addColorStop("0.5","blue");
+        gradient.addColorStop("1.0","red");
+        // 用渐变进行填充
+        _this.ctx.strokeStyle = gradient;
+        _this.ctx.strokeText('吉 林 快 三' , 100,  _this.option.height - 50);
         _this.drawReady();
     }
     drawReady(){
