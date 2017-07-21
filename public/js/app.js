@@ -151,32 +151,34 @@ class DrawGrid {
     		_this.drawNums(item ,height ,nextItem);
     		_this.drawLine(0, height, width, height ,item.issue == 87 ? 'bold' : null);
     	}
-        _this.ctx.beginPath();
-        // Create gradient
-        var grd = _this.ctx.createLinearGradient(0,0,700,0);
-
-        grd.addColorStop(0, 'red');
-        grd.addColorStop(1, '#fae592');
-
-        // Fill with gradient
-        _this.ctx.fillStyle = grd;
-
-        _this.ctx.fillRect(0, _this.option.height - 50, width,50);
-
-
-
-        _this.ctx.beginPath();
-        _this.ctx.font="30px Verdana";
-        // 创建渐变
-        var gradient = ctx.createLinearGradient(0, 0, width, 0);
-        gradient.addColorStop("0","magenta");
-        gradient.addColorStop("0.5","blue");
-        gradient.addColorStop("1.0","red");
-        // 用渐变进行填充
-        _this.ctx.strokeStyle = gradient;
-        _this.ctx.strokeText('吉 林 快 三' , 100,  _this.option.height - 50);
+        _this.drawFooter();
         _this.drawReady();
     }
+
+    drawFooter(){
+        var _this   = this,
+            width   = _this.option.width;
+        //绘制底部背景
+        _this.ctx.beginPath();
+        var grd = _this.ctx.createLinearGradient(0,0,width,0);
+        grd.addColorStop(0, '#FF0066');
+        grd.addColorStop(1, '#fae592');
+        _this.ctx.fillStyle = grd;
+        _this.ctx.fillRect(0, _this.option.height - 50, width,50);
+        //绘制底部文字
+        _this.ctx.beginPath();
+        _this.ctx.font = '24px Georgia';
+        // 创建渐变
+        var gradient = _this.ctx.createLinearGradient(250, 0, 380, 0);
+        gradient.addColorStop(0, '#666600');
+        gradient.addColorStop(.3, "#0099FF");
+        gradient.addColorStop(.7, "#FFCC33");
+        gradient.addColorStop(1, "#CC00CC");
+        // 用渐变进行填充
+        _this.ctx.fillStyle = gradient;
+        _this.ctx.fillText('吉林快三 ***工作室制作' , 250,  _this.option.height - 15);
+    }
+
     drawReady(){
         if(this.option.ready){
             this.option.ready.call(this);
