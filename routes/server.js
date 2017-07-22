@@ -16,9 +16,12 @@ router.get('/canvas.action', function (req, res) {
     var result = [];
     for(var i = 0; i < 51;i++){
         var num = [Math.ceil(Math.random()*6),Math.ceil(Math.random()*6),Math.ceil(Math.random()*6)];
+        var nums = num.sort();
         result.push({
-            nums: num.sort(),
-            issue: i == 30 ? 87 : i + 1
+            n1: nums[0],
+            n2: nums[1],
+            n3: nums[2],
+            issueno: i == 30 ? 87 : i + 1
         });
     }
     res.send(JSON.stringify(result))
